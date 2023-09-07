@@ -1,0 +1,39 @@
+Small, triangular-like piece is defined as "small(1)".
+Large, four-sided piece is defined as "large(2)".
+"Set of turnes", or "set of moves" is two numbers x,y. x - turn for up layer, y - turn for down layer. 
+"Part 1" is first part of scramble that keeps cube shape.
+"Part 2" is second part of scramble that does not keep cube shape.
+!!!Down and up layers are called "action layers"
+
+Large(2) = 1/6 of a circle
+Small(1) = 1/12 of a circle
+Part 1's length is always half of the whole scramble rounded down.
+Difference between layerSlashCheck and 
+
+1. Generates one set of moves into a 2d array(one 2d array = one set of moves)
+2. layerTurnCalc function edits a copy(because if generated scramble is not possible, we dont lose current position of pieces that
+ is in layer_position_... arrays) of uplayer_pos_... arrays depending on just generated set of moves.
+3. layerSlashCheck function checks depending on just edited uplayer_pos_... arrays if the cube can be turned. If yes returns True,
+ if no return False. 
+4. If layerSlashCheck()==True: goes to point 1 to generated next set of moves, else: regenerates current set of moves until True.
+
+Problems need to solve:
+>Variable that will define which set of moves has to be generated. It changes if previous was possible but does not change if needed to
+  regenerate set of moves
+
+
+Make two lists: for right and left parts of a layer that will contain numbers 1 and 2 which represent pieces on a layer
+ of the cube: small(1) and large(2). Counting is clockwise, starting from the piece that is right next to turn line if counting clockwise,
+ as I said earlier. For example: first right-sided list will contain value of piecesThe purpose of this list is that
+
+Scramble has to parts:
+    1. Scrambling but keeping cube in a cube shape.
+        To keep cube shape while scrambling the cube has to follow this rule: looking at the front(F) or back(B) side, one action layer 
+         must be flat(pieces are placed like this: large(2)-small(1)-large(2)) while other action layer must be crooked(pieces are 
+         placed like this: half large(1)-small(1)-large(2)-small(1))
+    2. Scrambling absolutely randomly, not keeping a cube shape.
+        First set of moves here(in part 2) dont rely almost at all on scramble that was in part 1, because itll be always
+         in cube shape (difference is that only one of two layers is turned by a small(1) piece).
+        To turn the cube, sum of pieces on right side from the turn line must be equal to sum of pieces on the left side. It is always 6.
+         Also make sure this rule implements both action layers.
+        
